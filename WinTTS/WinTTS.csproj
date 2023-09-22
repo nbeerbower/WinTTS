@@ -8,6 +8,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+    <PackageReference Include="CSCore" Version="1.2.1.2" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.5" />
   </ItemGroup>
 
