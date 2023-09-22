@@ -20,9 +20,18 @@ class Program
             synthesizer.SelectVoice(selectedVoice);
             Console.WriteLine("Using voice: " + selectedVoice);
 
-            // Get user input for text to be spoken
-            Console.Write("Enter text to be spoken: ");
-            string text = Console.ReadLine();
+            string text;
+            if (args.Length > 0)
+            {
+                // Get CLI argument
+                text = args[0];
+            }
+            else
+            {
+                // Get user input
+                Console.Write("Enter text to be spoken: ");
+                text = Console.ReadLine();
+            }
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -42,12 +51,20 @@ class Program
                     Console.WriteLine($"{deviceIndex++}. {device.FriendlyName}");
                 }
 
-                // Prompt user for device selection
-                Console.Write("Select an audio device by index: ");
-                if (!int.TryParse(Console.ReadLine(), out int selectedIndex) || selectedIndex < 0 || selectedIndex >= devices.Count)
+                // Select index from CLI or user input
+                int selectedIndex;
+                if (args.Length > 1 && int.TryParse(args[1], out selectedIndex) && selectedIndex >= 0 && selectedIndex < devices.Count)
                 {
-                    Console.WriteLine("Invalid selection. Exiting...");
-                    return;
+                    Console.WriteLine($"Selected audio device: {devices[selectedIndex].FriendlyName}");
+                }
+                else
+                {
+                    Console.Write("Select an audio device by index: ");
+                    if (!int.TryParse(Console.ReadLine(), out selectedIndex) || selectedIndex < 0 || selectedIndex >= devices.Count)
+                    {
+                        Console.WriteLine("Invalid selection. Exiting...");
+                        return;
+                    }
                 }
 
                 // Play the memory stream on the selected audio device using CSCore

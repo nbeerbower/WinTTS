@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "WinTTS": {
+      "commandName": "Project"
+    },
+    "NikuText": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Hello this is NikuNiku900! You're favorite AI artist girl!\" 1"
+    }
+  }
+}
